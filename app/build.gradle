@@ -14,6 +14,11 @@ android {
         versionName "1.0"
     }
     buildTypes {
+
+        all {
+            buildConfigField 'String', 'END_POINT_URL', '"http://74.50.59.155:5000"'
+        }
+
         debug {
             minifyEnabled true
             shrinkResources true
@@ -26,23 +31,28 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding {
-        enabled = true
-        version = "2.1.0"
-    }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
     }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.0.0'
+    compile "com.android.support:appcompat-v7:24.0.0"
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
-    kapt "com.android.databinding:compiler:$android.dataBinding.version"
+    compile "com.squareup.retrofit2:retrofit:$retrofit_version"
+    compile "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    compile "com.squareup.retrofit2:adapter-rxjava:$retrofit_version"
+
+    // tests
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    testCompile 'junit:junit:4.12'
+    testCompile 'com.google.truth:truth:0.28'
 }
 kapt {
     generateStubs = true
