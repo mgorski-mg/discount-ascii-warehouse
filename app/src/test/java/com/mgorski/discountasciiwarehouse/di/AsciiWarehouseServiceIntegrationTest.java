@@ -34,6 +34,8 @@ public class AsciiWarehouseServiceIntegrationTest {
         // When
         service.getAsciiItems(null, null, null, null).subscribeOn(Schedulers.io())
                 .subscribe(testSubscriber);
+
+        // Then
         testSubscriber.awaitTerminalEvent();
         testSubscriber.assertNoErrors();
     }

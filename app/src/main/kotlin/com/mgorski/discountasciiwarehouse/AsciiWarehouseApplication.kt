@@ -6,6 +6,6 @@ import com.mgorski.discountasciiwarehouse.di.AppComponent
 class AsciiWarehouseApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        AppComponent.init()
+        AppComponent.init(this)
     }
 }

@@ -5,6 +5,8 @@ import com.mgorski.discountasciiwarehouse.network.ndjson.NdJsonConverterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
+import okhttp3.Cache
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -27,10 +29,11 @@ class RetrofitModule {
             .build()
 
     @Provides
-    fun providesOkHttp(loggingInterceptor: HttpLoggingInterceptor)
+    fun providesOkHttp(loggingInterceptor: HttpLoggingInterceptor, cache: Cache?, @ProvidesCacheInterceptor cacheInterceptor: Interceptor)
             = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
-            .addNetworkInterceptor { it.proceed(it.request())}
+            .addInterceptor(cacheInterceptor)
+            .cache(cache)
             .build()
 
     @Provides

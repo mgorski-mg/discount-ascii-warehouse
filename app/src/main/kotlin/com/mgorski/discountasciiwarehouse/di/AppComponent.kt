@@ -1,18 +1,21 @@
 package com.mgorski.discountasciiwarehouse.di
 
+import android.app.Application
+import com.mgorski.discountasciiwarehouse.network.NetworkCacheModule
 import com.mgorski.discountasciiwarehouse.network.RetrofitModule
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = arrayOf(RetrofitModule::class))
+@Component(modules = arrayOf(AppModule::class, RetrofitModule::class, NetworkCacheModule::class))
 interface AppComponent : AppGraph {
 
     companion object {
         lateinit var instance: AppComponent
 
-        fun init() {
+        fun init(application: Application) {
             instance = DaggerAppComponent.builder()
+                    .appModule(AppModule(application))
                     .build()
         }
     }
