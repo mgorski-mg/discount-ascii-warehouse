@@ -5,12 +5,12 @@ class NdJsonUtil {
     companion object {
         /** Converts Json or JsonArray to NdJson.*/
         fun convertToNDJson(jsonString: String): String {
-            var ndJsonString = jsonString.replace("},", "}\n").plus("\n")
+            var ndJsonString = jsonString.replace("},", "}\n")
             if (isJsonArray(jsonString)) {
                 ndJsonString = ndJsonString.substring(1, jsonString.length - 1)
             }
 
-            return ndJsonString
+            return ndJsonString.plus("\n")
         }
 
         /** Converts NdJson to JsonArray.*/
