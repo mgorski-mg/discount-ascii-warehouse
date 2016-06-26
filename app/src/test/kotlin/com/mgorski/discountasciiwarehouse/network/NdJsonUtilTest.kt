@@ -1,7 +1,8 @@
 package com.mgorski.discountasciiwarehouse.network
 
-import com.google.common.truth.Truth
 import com.mgorski.discountasciiwarehouse.network.ndjson.NdJsonUtil
+import org.hamcrest.MatcherAssert
+import org.hamcrest.Matchers
 import org.junit.Test
 
 class NdJsonUtilTest {
@@ -16,8 +17,8 @@ class NdJsonUtilTest {
         val result = NdJsonUtil.convertToNDJson(json);
 
         // Then
-        Truth.assertThat(result)
-                .isEqualTo(expected)
+        MatcherAssert.assertThat(result,
+                Matchers.`is`(expected))
     }
 
     @Test
@@ -30,8 +31,8 @@ class NdJsonUtilTest {
         val result = NdJsonUtil.convertToNDJson(json);
 
         // Then
-        Truth.assertThat(result)
-                .isEqualTo(expected)
+        MatcherAssert.assertThat(result,
+                Matchers.`is`(expected))
     }
 
     @Test
@@ -44,8 +45,8 @@ class NdJsonUtilTest {
         val result = NdJsonUtil.convertToJsonArray(ndjson);
 
         // Then
-        Truth.assertThat(result)
-                .isEqualTo(expected)
+        MatcherAssert.assertThat(result,
+                Matchers.`is`(expected))
     }
 
     @Test
@@ -58,7 +59,7 @@ class NdJsonUtilTest {
         val result = NdJsonUtil.convertToJsonArray(ndjson);
 
         // Then
-        Truth.assertThat(result)
-                .isEqualTo(expected)
+        MatcherAssert.assertThat(result,
+                Matchers.`is`(expected))
     }
 }

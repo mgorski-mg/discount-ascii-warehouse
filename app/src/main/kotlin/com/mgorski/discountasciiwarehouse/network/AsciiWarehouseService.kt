@@ -10,9 +10,5 @@ interface AsciiWarehouseService {
 
     @NdJson
     @GET("api/search")
-    fun getAsciiItems(): Observable<List<WebAsciiItem>>
-
-    @NdJson
-    @GET("api/search")
-    fun getAsciiItems(@Query("limit") limit: Int): Observable<List<WebAsciiItem>>
+    fun getAsciiItems(@Query("limit") limit: Int? = null, @Query("skip") skip: Int? = null, @Query("q") tagsQuery: String? = null, @Query("onlyInStock") onlyInStock: Int? = null): Observable<List<WebAsciiItem>>
 }
