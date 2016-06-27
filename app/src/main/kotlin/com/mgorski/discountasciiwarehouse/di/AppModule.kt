@@ -1,6 +1,7 @@
 package com.mgorski.discountasciiwarehouse.di
 
 import android.app.Application
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 
@@ -8,5 +9,5 @@ import dagger.Provides
 class AppModule(private val application: Application) {
 
     @Provides
-    fun providesApplication() = application
+    fun providesApplication(): Context = application
 }

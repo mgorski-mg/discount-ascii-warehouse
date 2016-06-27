@@ -5,8 +5,9 @@ import com.mgorski.discountasciiwarehouse.network.interceptor.CacheInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
+import okhttp3.Interceptor
+import timber.log.Timber
 import java.io.File
-import javax.inject.Qualifier
 
 @Module
 class NetworkCacheModule {
@@ -20,8 +21,8 @@ class NetworkCacheModule {
     fun providesCache(context: Context): Cache? {
         try {
             return Cache(File(context.cacheDir, CACHE_NAME), CACHE_SIZE)
-        } catch (ignore: Exception) {
-            // TODO: add Timber
+        } catch (e: Exception) {
+            Timber.e(e, "Could not create Cache for OkHttp");
         }
 
         return null
@@ -29,11 +30,10 @@ class NetworkCacheModule {
 
     @Provides
     @ProvidesCacheInterceptor
-    fun providesOfflineCacheInterceptor()
+    fun providesOfflineCacheInterceptor(): Interceptor
             = CacheInterceptor()
 }
 
-@Qualifier
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class ProvidesCacheInterceptor

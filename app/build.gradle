@@ -49,6 +49,7 @@ dependencies {
     compile "io.reactivex:rxjava:1.1.5"
     compile "io.reactivex:rxkotlin:0.55.0"
     compile "io.reactivex:rxandroid:1.2.0"
+    compile "com.artemzin.rxjava:proguard-rules:1.1.6.0"
 
     compile "com.squareup.retrofit2:retrofit:$retrofit_version"
     compile "com.squareup.retrofit2:converter-moshi:$retrofit_version"
@@ -59,6 +60,8 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     testApt "com.google.dagger:dagger-compiler:$dagger_version"
     provided "javax.annotation:jsr250-api:1.0"
+
+    compile "com.jakewharton.timber:timber:4.1.2"
 
     // tests
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"

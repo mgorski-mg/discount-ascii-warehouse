@@ -11,6 +11,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
+import timber.log.Timber
 
 @Module
 class RetrofitModule {
@@ -37,8 +38,11 @@ class RetrofitModule {
             .build()
 
     @Provides
-    fun providesHttpLoggingInterceptor()
-            = HttpLoggingInterceptor()
+    fun providesHttpLoggingInterceptor(): HttpLoggingInterceptor {
+        val loggingInerceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { Timber.d(it) })
+        loggingInerceptor.level = HttpLoggingInterceptor.Level.BODY
+        return loggingInerceptor
+    }
 
     @Provides
     fun providesMoshi()
