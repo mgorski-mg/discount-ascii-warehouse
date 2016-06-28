@@ -13,8 +13,7 @@ import javax.inject.Inject
 
 class AsciiItemListActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var service: AsciiWarehouseService
+    @Inject lateinit var service: AsciiWarehouseService
 
     private val viewModel by lazy { AsciiItemListViewModel() }
 
