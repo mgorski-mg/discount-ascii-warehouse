@@ -8,6 +8,7 @@ import okhttp3.Cache
 import okhttp3.Interceptor
 import timber.log.Timber
 import java.io.File
+import javax.inject.Qualifier
 
 @Module
 class NetworkCacheModule {
@@ -34,6 +35,7 @@ class NetworkCacheModule {
             = CacheInterceptor()
 }
 
+@Qualifier
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class ProvidesCacheInterceptor

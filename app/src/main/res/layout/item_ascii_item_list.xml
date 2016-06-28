@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="16dp"
                 android:paddingTop="16dp"
-                android:text="@{String.valueOf(viewModel.item.price)}"/>
+                android:text="@{String.valueOf(viewModel.item.priceString)}"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
