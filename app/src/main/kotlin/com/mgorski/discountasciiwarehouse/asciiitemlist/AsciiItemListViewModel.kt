@@ -10,22 +10,30 @@ import rx.schedulers.Schedulers
 
 class AsciiItemListViewModel(private val service: AsciiWarehouseService) {
 
+    private var query = ""
+
     val items = ObservableArrayList<AsciiItem>()
 
     init {
-        service.getAsciiItems()
-                .subscribeOn(Schedulers.io())
-                .map { it.map { it.toAsciiItem() } }
-                .subscribe {
-                    items.addAll(it)
-                }
+        loadItems();
     }
 
-    val onLoadMoreCommand = { listener: PaginationRecyclerViewOnScrollListener ->
-        var subscription = service.getAsciiItems(skip = items.count())
+    val onLoadMoreCommand = { listener: PaginationRecyclerViewOnScrollListener -> loadItems(listener) }
+
+    fun onQueryChangedCommand(query: String) {
+        this.query = query
+        items.clear()
+        loadItems()
+    }
+
+    private fun loadItems(listener: PaginationRecyclerViewOnScrollListener? = null): Unit {
+        service.getAsciiItems(skip = items.count(), tagsQuery = query)
                 .subscribeOn(Schedulers.io())
                 .map { it.map { it.toAsciiItem() } }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { items.addAll(it); listener.loadingFinished() }
+                .subscribe {
+                    items.addAll(it)
+                    listener?.loadingFinished()
+                }
     }
 }

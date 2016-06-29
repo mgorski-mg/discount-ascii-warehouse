@@ -6,10 +6,25 @@
             name="viewModel"
             type="com.mgorski.discountasciiwarehouse.asciiitemlist.AsciiItemListViewModel"/>
     </data>
-    <android.support.v7.widget.RecyclerView
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        app:items="@{viewModel.items}"
-        app:onLoadMore="@{viewModel.onLoadMoreCommand}"/>
+        android:layout_height="match_parent">
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlways"/>
+        </android.support.design.widget.AppBarLayout>
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:items="@{viewModel.items}"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:onLoadMore="@{viewModel.onLoadMoreCommand}"/>
+    </android.support.design.widget.CoordinatorLayout>
+
 </layout>
