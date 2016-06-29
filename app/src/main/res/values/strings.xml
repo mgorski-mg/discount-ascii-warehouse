@@ -4,4 +4,6 @@
     <string name="last_in_stock">(Only 1 more in stock!)</string>
     <string name="search">Search</string>
     <string name="search_hint">Search by tag"</string>
+    <string name="sold_out">SOLD OUT!</string>
+    <string name="loading">Loading…</string>
 </resources>

@@ -2,4 +2,7 @@
     <dimen name="activity_padding">16dp</dimen>
     <dimen name="card_corner_radius">4dp</dimen>
     <dimen name="recycler_view_item_offset">6dp</dimen>
+
+    <dimen name="text_size_large">30sp</dimen>
+    <dimen name="text_size_small">8sp</dimen>
 </resources>

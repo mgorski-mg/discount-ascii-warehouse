@@ -42,14 +42,14 @@ class AsciiItemListActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_ascii_item_list, menu);
+        menuInflater.inflate(R.menu.menu_ascii_item_list, menu)
 
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager;
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchItem = menu.findItem(R.id.action_search)
         searchView = MenuItemCompat.getActionView(searchItem) as SearchView
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName));
-        searchManager.getSearchableInfo(componentName)
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        searchView.isSubmitButtonEnabled = true
 
-        return true;
+        return true
     }
 }

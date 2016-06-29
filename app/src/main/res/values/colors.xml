@@ -3,7 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
     <color name="colorBuySquare">#666666</color>
     <color name="colorBuySquarePressed">#cc4125</color>
+
     <color name="colorAsciiItemBackground">#efefef</color>
+
+    <color name="colorMainText">@android:color/black</color>
+    <color name="colorSecondaryText">@android:color/white</color>
+    <color name="colorSoldOutText">#cc4125</color>
 </resources>

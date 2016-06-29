@@ -15,7 +15,7 @@ class AsciiItemListViewModel(private val service: AsciiWarehouseService) {
     val items = ObservableArrayList<AsciiItem>()
 
     init {
-        loadItems();
+        loadItems()
     }
 
     val onLoadMoreCommand = { listener: PaginationRecyclerViewOnScrollListener -> loadItems(listener) }

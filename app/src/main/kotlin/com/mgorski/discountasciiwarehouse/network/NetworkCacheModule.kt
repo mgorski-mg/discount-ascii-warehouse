@@ -23,7 +23,7 @@ class NetworkCacheModule {
         try {
             return Cache(File(context.cacheDir, CACHE_NAME), CACHE_SIZE)
         } catch (e: Exception) {
-            Timber.e(e, "Could not create Cache for OkHttp");
+            Timber.e(e, "Could not create Cache for OkHttp")
         }
 
         return null
