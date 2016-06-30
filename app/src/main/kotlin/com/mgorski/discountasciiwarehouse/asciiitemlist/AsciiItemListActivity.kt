@@ -21,7 +21,7 @@ class AsciiItemListActivity : AppCompatActivity() {
     private lateinit var searchView: SearchView
 
     init {
-        ItemListComponent.build(this).inject(this)
+        ItemListComponent.init(this).inject(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,5 +51,10 @@ class AsciiItemListActivity : AppCompatActivity() {
         searchView.isSubmitButtonEnabled = true
 
         return true
+    }
+
+    override fun onDestroy() {
+        ItemListComponent.destroy()
+        super.onDestroy()
     }
 }

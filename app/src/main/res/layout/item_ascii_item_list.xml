@@ -40,7 +40,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/buy_square_selector"
-                android:clickable="@{viewModel.item.stock > 0}">
+                android:clickable="@{viewModel.item.stock > 0}"
+                android:onClick="@{viewModel::onBuyClickCommand}">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
