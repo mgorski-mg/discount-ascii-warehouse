@@ -1,6 +1,7 @@
 package com.mgorski.discountasciiwarehouse.asciiitemlist
 
 import android.databinding.ObservableArrayList
+import android.databinding.ObservableBoolean
 import com.mgorski.discountasciiwarehouse.R
 import com.mgorski.discountasciiwarehouse.model.AsciiItem
 import com.mgorski.discountasciiwarehouse.model.toAsciiItem
@@ -15,6 +16,7 @@ class AsciiItemListViewModel(private val service: AsciiWarehouseService, private
     private var query = ""
 
     val items = ObservableArrayList<AsciiItem>()
+    var isLoading = ObservableBoolean(false)
 
     init {
         loadItems()
@@ -29,6 +31,8 @@ class AsciiItemListViewModel(private val service: AsciiWarehouseService, private
     }
 
     private fun loadItems(listener: PaginationRecyclerViewOnScrollListener? = null): Unit {
+        isLoading.set(true)
+
         service.getAsciiItems(skip = items.count(), tagsQuery = query)
                 .subscribeOn(Schedulers.io())
                 .map { it.map { it.toAsciiItem() } }
@@ -39,9 +43,11 @@ class AsciiItemListViewModel(private val service: AsciiWarehouseService, private
                     } else {
                         messagesManager.showMessage(R.string.no_result, R.string.retry, { loadItems(listener) })
                     }
+                    isLoading.set(false)
                     listener?.loadingFinished()
                 }, {
                     messagesManager.showMessage(R.string.download_error, R.string.retry, { loadItems(listener) })
+                    isLoading.set(false)
                     listener?.loadingFinished()
                 })
     }
