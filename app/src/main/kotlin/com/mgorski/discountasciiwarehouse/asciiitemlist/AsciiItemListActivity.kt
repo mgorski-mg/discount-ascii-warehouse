@@ -10,8 +10,8 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import com.mgorski.discountasciiwarehouse.R
+import com.mgorski.discountasciiwarehouse.asciiitemlist.di.ItemListComponent
 import com.mgorski.discountasciiwarehouse.databinding.ActivityAsciiItemListBinding
-import com.mgorski.discountasciiwarehouse.di.AppComponent
 import javax.inject.Inject
 
 class AsciiItemListActivity : AppCompatActivity() {
@@ -21,7 +21,7 @@ class AsciiItemListActivity : AppCompatActivity() {
     private lateinit var searchView: SearchView
 
     init {
-        AppComponent.instance.inject(this)
+        ItemListComponent.build(this).inject(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

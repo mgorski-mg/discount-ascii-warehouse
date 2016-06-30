@@ -27,13 +27,15 @@
                 android:paddingBottom="40dp"
                 android:paddingTop="40dp"
                 android:text="@{viewModel.item.face}"
+                android:textColor="@color/colorMainText"
                 android:textSize="@dimen/text_size_large"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="16dp"
                 android:paddingTop="16dp"
-                android:text="@{String.valueOf(viewModel.item.priceString)}"/>
+                android:text="@{String.valueOf(viewModel.item.priceString)}"
+                android:textColor="@color/colorMainText"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

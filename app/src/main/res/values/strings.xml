@@ -6,4 +6,7 @@
     <string name="search_hint">Search by tag"</string>
     <string name="sold_out">SOLD OUT!</string>
     <string name="loading">Loading…</string>
+    <string name="download_error">Can\'t download data. Please check your internet connection.</string>
+    <string name="no_result">No result!</string>
+    <string name="retry">RETRY</string>
 </resources>
