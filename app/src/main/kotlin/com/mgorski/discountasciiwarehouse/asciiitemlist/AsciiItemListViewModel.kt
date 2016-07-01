@@ -4,14 +4,12 @@ import android.databinding.ObservableArrayList
 import android.databinding.ObservableBoolean
 import com.mgorski.discountasciiwarehouse.R
 import com.mgorski.discountasciiwarehouse.model.AsciiItem
-import com.mgorski.discountasciiwarehouse.model.toAsciiItem
-import com.mgorski.discountasciiwarehouse.network.AsciiWarehouseService
+import com.mgorski.discountasciiwarehouse.network.AsciiItemsProvider
 import com.mgorski.discountasciiwarehouse.view.messages.MessagesManager
 import com.mgorski.discountasciiwarehouse.view.recyclerview.pagination.PaginationRecyclerViewOnScrollListener
 import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
 
-class AsciiItemListViewModel(private val service: AsciiWarehouseService, private val messagesManager: MessagesManager) {
+class AsciiItemListViewModel(private val asciiItemsProvider: AsciiItemsProvider, private val messagesManager: MessagesManager) {
 
     private var query = ""
 
@@ -33,9 +31,7 @@ class AsciiItemListViewModel(private val service: AsciiWarehouseService, private
     private fun loadItems(listener: PaginationRecyclerViewOnScrollListener? = null): Unit {
         isLoading.set(true)
 
-        service.getAsciiItems(skip = items.count(), tagsQuery = query)
-                .subscribeOn(Schedulers.io())
-                .map { it.map { it.toAsciiItem() } }
+        asciiItemsProvider.getAsciiItems(skip = items.count(), tagsQuery = query)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     if (it.size > 0) {

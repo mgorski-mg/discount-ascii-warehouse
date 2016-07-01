@@ -17,6 +17,10 @@ import timber.log.Timber
 class RetrofitModule {
 
     @Provides
+    fun providesAsciiItemsProvider(service: AsciiWarehouseService)
+            = AsciiItemsProvider(service)
+
+    @Provides
     fun providesAsciiWarehouseService(retrofit: Retrofit)
             = retrofit.create(AsciiWarehouseService::class.java)
 

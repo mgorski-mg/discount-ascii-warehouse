@@ -1,7 +1,7 @@
 package com.mgorski.discountasciiwarehouse.di
 
 import android.app.Application
-import com.mgorski.discountasciiwarehouse.network.AsciiWarehouseService
+import com.mgorski.discountasciiwarehouse.network.AsciiItemsProvider
 import com.mgorski.discountasciiwarehouse.network.NetworkCacheModule
 import com.mgorski.discountasciiwarehouse.network.RetrofitModule
 import dagger.Component
@@ -21,5 +21,5 @@ interface AppComponent {
         }
     }
 
-    fun getAsciiWarehouseService(): AsciiWarehouseService
+    fun getAsciiItemsProvider(): AsciiItemsProvider
 }
