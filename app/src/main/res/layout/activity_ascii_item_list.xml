@@ -23,6 +23,7 @@
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="@{viewModel.items.size > 0 ? View.VISIBLE : View.GONE}"
             app:items="@{viewModel.items}"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:onLoadMore="@{viewModel.onLoadMoreCommand}"/>
