@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/no_result_to_display"
+            android:text="@string/no_results_to_display"
             android:textSize="@dimen/text_size_large"
             android:visibility="@{viewModel.items.size == 0 &amp;&amp; !viewModel.isLoading ? View.VISIBLE : View.GONE}"/>
         <ProgressBar

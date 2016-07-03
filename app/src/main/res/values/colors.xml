@@ -10,6 +10,8 @@
     <color name="colorAsciiItemBackground">#efefef</color>
 
     <color name="colorMainText">@android:color/black</color>
-    <color name="colorSecondaryText">@android:color/white</color>
+    <color name="colorToolbarText">#e7e7e7</color>
+    <color name="colorSecondaryText">#e7e7e7</color>
     <color name="colorSoldOutText">#cc4125</color>
+    <color name="colorHint">#d0d0d0</color>
 </resources>

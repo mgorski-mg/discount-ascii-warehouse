@@ -43,9 +43,9 @@ class RetrofitModule {
 
     @Provides
     fun providesHttpLoggingInterceptor(): HttpLoggingInterceptor {
-        val loggingInerceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { Timber.d(it) })
-        loggingInerceptor.level = HttpLoggingInterceptor.Level.BODY
-        return loggingInerceptor
+        val loggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { Timber.d(it) })
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        return loggingInterceptor
     }
 
     @Provides
