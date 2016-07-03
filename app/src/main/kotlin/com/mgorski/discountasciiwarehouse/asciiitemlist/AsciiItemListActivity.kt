@@ -9,6 +9,7 @@ import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
 import android.view.Menu
+import android.view.MenuItem
 import com.mgorski.discountasciiwarehouse.R
 import com.mgorski.discountasciiwarehouse.asciiitemlist.di.ItemListComponent
 import com.mgorski.discountasciiwarehouse.databinding.ActivityAsciiItemListBinding
@@ -49,6 +50,15 @@ class AsciiItemListActivity : AppCompatActivity() {
         searchView = MenuItemCompat.getActionView(searchItem) as SearchView
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
         searchView.isSubmitButtonEnabled = true
+
+        MenuItemCompat.setOnActionExpandListener(searchItem, object : MenuItemCompat.OnActionExpandListener {
+            override fun onMenuItemActionExpand(item: MenuItem) = true
+
+            override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
+                viewModel.onQueryChangedCommand("")
+                return true
+            }
+        })
 
         return true
     }
