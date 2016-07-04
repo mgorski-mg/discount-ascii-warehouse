@@ -11,4 +11,5 @@
     <string name="retry">RETRY</string>
     <string name="no_results_to_display">No results to display</string>
     <string name="feature_not_implemented">Feature not implemented</string>
+    <string name="only_in_stock">Only in stock</string>
 </resources>

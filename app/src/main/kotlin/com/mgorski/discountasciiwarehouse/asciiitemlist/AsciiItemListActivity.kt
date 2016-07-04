@@ -63,6 +63,16 @@ class AsciiItemListActivity : AppCompatActivity() {
         return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_only_in_stock) {
+            item.isChecked = !item.isChecked
+            viewModel.onFilterChangedCommand(item.isChecked)
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onDestroy() {
         ItemListComponent.destroy()
         super.onDestroy()

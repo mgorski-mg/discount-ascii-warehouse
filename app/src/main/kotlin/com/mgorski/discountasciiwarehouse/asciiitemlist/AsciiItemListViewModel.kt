@@ -12,8 +12,10 @@ import rx.android.schedulers.AndroidSchedulers
 class AsciiItemListViewModel(private val asciiItemsProvider: AsciiItemsProvider, private val messagesManager: MessagesManager) {
 
     private var query = ""
+    private var onlyInStock = false
+    private val items: MutableList<AsciiItem> = arrayListOf()
 
-    val items = ObservableArrayList<AsciiItem>()
+    val filteredItems = ObservableArrayList<AsciiItem>()
     var isLoading = ObservableBoolean(false)
 
     init {
@@ -25,7 +27,13 @@ class AsciiItemListViewModel(private val asciiItemsProvider: AsciiItemsProvider,
     fun onQueryChangedCommand(query: String) {
         this.query = query
         items.clear()
+        filteredItems.clear()
         loadItems()
+    }
+
+    fun onFilterChangedCommand(onlyInStock: Boolean) {
+        this.onlyInStock = onlyInStock
+        updateFilteredList()
     }
 
     private fun loadItems(listener: PaginationRecyclerViewOnScrollListener? = null): Unit {
@@ -36,6 +44,7 @@ class AsciiItemListViewModel(private val asciiItemsProvider: AsciiItemsProvider,
                 .subscribe({
                     if (it.size > 0) {
                         items.addAll(it)
+                        updateFilteredList()
                     } else {
                         messagesManager.showMessage(R.string.no_result, R.string.retry, { loadItems(listener) })
                     }
@@ -46,5 +55,10 @@ class AsciiItemListViewModel(private val asciiItemsProvider: AsciiItemsProvider,
                     isLoading.set(false)
                     listener?.loadingFinished()
                 })
+    }
+
+    private fun updateFilteredList() {
+        filteredItems.clear()
+        filteredItems.addAll(items.filter { if (onlyInStock) it.stock > 0 else true })
     }
 }
