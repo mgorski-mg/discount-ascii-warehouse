@@ -40,5 +40,4 @@
             android:layout_gravity="center"
             android:visibility="@{viewModel.filteredItems.size == 0 &amp;&amp; viewModel.isLoading ? View.VISIBLE : View.GONE}"/>
     </android.support.design.widget.CoordinatorLayout>
-
 </layout>

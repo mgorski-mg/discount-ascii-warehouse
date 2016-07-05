@@ -46,11 +46,11 @@ class AsciiItemListViewModel(private val asciiItemsProvider: AsciiItemsProvider,
 
         asciiItemsProvider.getAsciiItems(skip = items.count(), tagsQuery = query)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    if (it.size > 0) {
-                        items.addAll(it)
+                .subscribe({ newItems ->
+                    if (newItems.size > 0) {
+                        items.addAll(newItems)
                         updateFilteredList()
-                        updateSuggestions(it)
+                        updateSuggestions(newItems)
                     } else {
                         messagesManager.showMessage(R.string.no_result, R.string.retry, { loadItems(listener) })
                     }

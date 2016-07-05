@@ -26,8 +26,11 @@ class PaginationRecyclerViewOnScrollListener(private val adapter: PaginationRecy
 
     private fun isLastItemDisplaying(recyclerView: RecyclerView): Boolean {
         val childCount = recyclerView.layoutManager.childCount
-        val child = recyclerView.getChildAt(childCount - 1) ?: return false
-        val position = recyclerView.getChildAdapterPosition(child)
-        return position == recyclerView.adapter.itemCount - 1 && child.bottom <= recyclerView.height
+        val child = recyclerView.getChildAt(childCount - 1)
+        if (child != null) {
+            val position = recyclerView.getChildAdapterPosition(child)
+            return position == recyclerView.adapter.itemCount - 1 && child.bottom <= recyclerView.height
+        }
+        return false
     }
 }
