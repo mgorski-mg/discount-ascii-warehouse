@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.mgorski.discountasciiwarehouse.asciiitemlist.AsciiItemListViewModel"/>
+    </data>
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlways"/>
+        </android.support.design.widget.AppBarLayout>
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.filteredItems.size > 0 ? View.VISIBLE : View.GONE}"
+            app:items="@{viewModel.filteredItems}"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:onLoadMore="@{viewModel.onLoadMoreCommand}"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/no_results_to_display"
+            android:textSize="@dimen/text_size_large"
+            android:visibility="@{viewModel.filteredItems.size == 0 &amp;&amp; !viewModel.isLoading ? View.VISIBLE : View.GONE}"/>
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="@{viewModel.filteredItems.size == 0 &amp;&amp; viewModel.isLoading ? View.VISIBLE : View.GONE}"/>
+    </android.support.design.widget.CoordinatorLayout>
+</layout>
