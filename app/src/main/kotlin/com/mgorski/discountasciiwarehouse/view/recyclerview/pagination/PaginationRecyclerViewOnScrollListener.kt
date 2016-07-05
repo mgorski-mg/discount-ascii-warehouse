@@ -29,7 +29,7 @@ class PaginationRecyclerViewOnScrollListener(private val adapter: PaginationRecy
         val child = recyclerView.getChildAt(childCount - 1)
         if (child != null) {
             val position = recyclerView.getChildAdapterPosition(child)
-            return position == recyclerView.adapter.itemCount - 1 && child.bottom <= recyclerView.height
+            return position == recyclerView.adapter.itemCount - 1 && child.bottom <= recyclerView.height && child.bottom >= recyclerView.height - 30
         }
         return false
     }
