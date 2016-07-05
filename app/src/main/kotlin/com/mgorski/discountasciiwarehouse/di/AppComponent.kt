@@ -1,6 +1,7 @@
 package com.mgorski.discountasciiwarehouse.di
 
 import android.app.Application
+import com.mgorski.discountasciiwarehouse.asciiitemlist.suggestions.SuggestionsStorage
 import com.mgorski.discountasciiwarehouse.network.AsciiItemsProvider
 import com.mgorski.discountasciiwarehouse.network.NetworkCacheModule
 import com.mgorski.discountasciiwarehouse.network.RetrofitModule
@@ -22,4 +23,6 @@ interface AppComponent {
     }
 
     fun getAsciiItemsProvider(): AsciiItemsProvider
+
+    fun getSuggestionsStorage(): SuggestionsStorage
 }

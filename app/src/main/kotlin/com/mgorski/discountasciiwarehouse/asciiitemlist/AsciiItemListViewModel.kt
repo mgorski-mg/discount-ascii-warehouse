@@ -3,22 +3,25 @@ package com.mgorski.discountasciiwarehouse.asciiitemlist
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableBoolean
 import com.mgorski.discountasciiwarehouse.R
+import com.mgorski.discountasciiwarehouse.asciiitemlist.suggestions.SuggestionsStorage
 import com.mgorski.discountasciiwarehouse.model.AsciiItem
 import com.mgorski.discountasciiwarehouse.network.AsciiItemsProvider
 import com.mgorski.discountasciiwarehouse.view.messages.MessagesManager
 import com.mgorski.discountasciiwarehouse.view.recyclerview.pagination.PaginationRecyclerViewOnScrollListener
 import rx.android.schedulers.AndroidSchedulers
 
-class AsciiItemListViewModel(private val asciiItemsProvider: AsciiItemsProvider, private val messagesManager: MessagesManager) {
+class AsciiItemListViewModel(private val asciiItemsProvider: AsciiItemsProvider, private val messagesManager: MessagesManager, private val suggestionsStorage: SuggestionsStorage) {
 
     private var query = ""
     private var onlyInStock = false
     private val items: MutableList<AsciiItem> = arrayListOf()
+    private val suggestions: MutableList<String>
 
     val filteredItems = ObservableArrayList<AsciiItem>()
-    var isLoading = ObservableBoolean(false)
+    val isLoading = ObservableBoolean(false)
 
     init {
+        suggestions = suggestionsStorage.loadSuggestions().toMutableList()
         loadItems()
     }
 
@@ -36,6 +39,8 @@ class AsciiItemListViewModel(private val asciiItemsProvider: AsciiItemsProvider,
         updateFilteredList()
     }
 
+    fun getFilteredSuggestions(query: String) = suggestions.filter { it.contains(query, true) && !it.equals(query, true) }
+
     private fun loadItems(listener: PaginationRecyclerViewOnScrollListener? = null): Unit {
         isLoading.set(true)
 
@@ -45,6 +50,7 @@ class AsciiItemListViewModel(private val asciiItemsProvider: AsciiItemsProvider,
                     if (it.size > 0) {
                         items.addAll(it)
                         updateFilteredList()
+                        updateSuggestions(it)
                     } else {
                         messagesManager.showMessage(R.string.no_result, R.string.retry, { loadItems(listener) })
                     }
@@ -60,5 +66,15 @@ class AsciiItemListViewModel(private val asciiItemsProvider: AsciiItemsProvider,
     private fun updateFilteredList() {
         filteredItems.clear()
         filteredItems.addAll(items.filter { if (onlyInStock) it.stock > 0 else true })
+    }
+
+    private fun updateSuggestions(newItems: List<AsciiItem>) {
+        val currentTags = newItems.map { it.tags }.flatMap { it }
+        val newTags = currentTags.subtract(suggestions)
+        if (newTags.any()) {
+            suggestions.addAll(newTags)
+            suggestions.sort()
+            suggestionsStorage.saveSuggestions(suggestions)
+        }
     }
 }

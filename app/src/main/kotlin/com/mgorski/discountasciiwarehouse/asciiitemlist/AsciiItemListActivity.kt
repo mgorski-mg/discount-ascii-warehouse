@@ -12,6 +12,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.mgorski.discountasciiwarehouse.R
 import com.mgorski.discountasciiwarehouse.asciiitemlist.di.ItemListComponent
+import com.mgorski.discountasciiwarehouse.asciiitemlist.suggestions.SuggestionsCursorAdapter
 import com.mgorski.discountasciiwarehouse.databinding.ActivityAsciiItemListBinding
 import javax.inject.Inject
 
@@ -44,22 +45,7 @@ class AsciiItemListActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_ascii_item_list, menu)
-
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchItem = menu.findItem(R.id.action_search)
-        searchView = MenuItemCompat.getActionView(searchItem) as SearchView
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-        searchView.isSubmitButtonEnabled = true
-
-        MenuItemCompat.setOnActionExpandListener(searchItem, object : MenuItemCompat.OnActionExpandListener {
-            override fun onMenuItemActionExpand(item: MenuItem) = true
-
-            override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
-                viewModel.onQueryChangedCommand("")
-                return true
-            }
-        })
-
+        setupSearchView(menu)
         return true
     }
 
@@ -76,5 +62,51 @@ class AsciiItemListActivity : AppCompatActivity() {
     override fun onDestroy() {
         ItemListComponent.destroy()
         super.onDestroy()
+    }
+
+    private fun setupSearchView(menu: Menu) {
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchItem = menu.findItem(R.id.action_search)
+        searchView = MenuItemCompat.getActionView(searchItem) as SearchView
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        searchView.isSubmitButtonEnabled = true
+
+        addResetQuery(searchItem)
+        addSuggestions(searchView)
+    }
+
+    private fun addResetQuery(searchItem: MenuItem) {
+        MenuItemCompat.setOnActionExpandListener(searchItem, object : MenuItemCompat.OnActionExpandListener {
+            override fun onMenuItemActionExpand(item: MenuItem) = true
+
+            override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
+                viewModel.onQueryChangedCommand("")
+                return true
+            }
+        })
+    }
+
+    private fun addSuggestions(searchView: SearchView) {
+        searchView.suggestionsAdapter = SuggestionsCursorAdapter(this)
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String) = false
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                val suggestions = viewModel.getFilteredSuggestions(newText)
+                (searchView.suggestionsAdapter as SuggestionsCursorAdapter).changeSuggestions(suggestions)
+                return true
+            }
+        })
+
+        searchView.setOnSuggestionListener(object : SearchView.OnSuggestionListener {
+            override fun onSuggestionSelect(position: Int) = false
+
+            override fun onSuggestionClick(position: Int): Boolean {
+                val suggestion = (searchView.suggestionsAdapter as SuggestionsCursorAdapter).getSuggestion(position)
+                searchView.setQuery(suggestion, true)
+                return true
+            }
+        })
     }
 }
