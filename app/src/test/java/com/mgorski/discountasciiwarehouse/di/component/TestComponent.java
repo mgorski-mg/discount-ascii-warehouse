@@ -1,6 +1,6 @@
 package com.mgorski.discountasciiwarehouse.di.component;
 
-import com.mgorski.discountasciiwarehouse.di.AsciiWarehouseServiceIntegrationTest;
+import com.mgorski.discountasciiwarehouse.AsciiWarehouseServiceIntegrationTest;
 import com.mgorski.discountasciiwarehouse.di.module.TestModule;
 import com.mgorski.discountasciiwarehouse.network.RetrofitModule;
 

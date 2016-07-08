@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.mgorski.discountasciiwarehouse"
-        minSdkVersion 19
+        minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -73,7 +73,6 @@ dependencies {
     compile "com.jakewharton.timber:timber:4.1.2"
 
     // tests
-    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
     testCompile "junit:junit:4.12"
     testCompile "org.hamcrest:hamcrest-all:1.3"
 }

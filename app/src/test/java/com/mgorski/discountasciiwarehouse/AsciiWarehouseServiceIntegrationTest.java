@@ -1,4 +1,4 @@
-package com.mgorski.discountasciiwarehouse.di;
+package com.mgorski.discountasciiwarehouse;
 
 import com.mgorski.discountasciiwarehouse.di.component.DaggerTestComponent;
 import com.mgorski.discountasciiwarehouse.network.AsciiWarehouseService;

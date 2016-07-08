@@ -9,6 +9,7 @@ import com.mgorski.discountasciiwarehouse.network.AsciiItemsProvider
 import com.mgorski.discountasciiwarehouse.view.messages.MessagesManager
 import com.mgorski.discountasciiwarehouse.view.recyclerview.pagination.PaginationRecyclerViewOnScrollListener
 import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 
 class AsciiItemListViewModel(private val asciiItemsProvider: AsciiItemsProvider, private val messagesManager: MessagesManager, private val suggestionsStorage: SuggestionsStorage) {
 
@@ -45,6 +46,7 @@ class AsciiItemListViewModel(private val asciiItemsProvider: AsciiItemsProvider,
         isLoading.set(true)
 
         asciiItemsProvider.getAsciiItems(skip = items.count(), tagsQuery = query)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ newItems ->
                     if (newItems.size > 0) {
